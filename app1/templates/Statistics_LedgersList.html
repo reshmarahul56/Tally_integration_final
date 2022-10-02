@@ -91,7 +91,7 @@ cursor:pointer;
                             <tbody>
 
                                 
-                                {% for i in ledg %}
+                                {% for i in led %}
                                 <tr class="table-row " data-href="{% url 'load_ledger_alter' i.id %}" >
 
                                     <td colspan="2" >{{ i.name }} </td>
@@ -100,7 +100,17 @@ cursor:pointer;
                                    
                                 </tr>
                             
-                            {% endfor %} 
+                            {% endfor %}
+                            {% for i in led1 %}
+                            <tr class="table-row " data-href="{% url 'load_ledger_alter' i.id %}" >
+
+                                <td colspan="2" >{{ i.name }} </td>
+
+                            
+                               
+                            </tr>
+                        
+                        {% endfor %} 
                                 
                             
                              

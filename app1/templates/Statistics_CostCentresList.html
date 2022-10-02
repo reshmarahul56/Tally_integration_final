@@ -101,6 +101,17 @@
                                     </tr>
                                 
                                 {% endfor %} 
+                                {% for i in cst1 %}
+    
+                                    <tr class="table-row " data-href="{% url 'load_cost_centers' i.id %}" >
+    
+                                        <td colspan="2" >{{ i.c_name }}</td>
+        
+                                    
+                                       
+                                    </tr>
+                                
+                                {% endfor %} 
                                 
                                 
                                 </tbody>

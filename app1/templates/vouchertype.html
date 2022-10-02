@@ -61,8 +61,15 @@ background-color: rgb(31, 40, 68);
                     <tr >
                         <th colspan="6">List Of Voucher Types <span>FOR 1-april-2022</span></th>              
                     </tr>    
-                    {% for i in vt_data %}         
-                    <tr class="table-row">
+                    {% for i in vou %}         
+                    <tr class="table-row table">
+                        <td colspan="6"><a href="{% url 'load_voucher_type' i.id %}">{{ i.voucher_name }}</a>
+                            <span><a href="{% url 'load_voucher_type' i.id %}"><i class="bi bi-pencil-fill" style="margin-right: 20px;color:rgb(75, 206, 75)"></i></a></span></td>
+                    </tr>   
+                    {% endfor %}
+
+                    {% for i in vou1 %}         
+                    <tr class="table-row table">
                         <td colspan="6"><a href="{% url 'load_voucher_type' i.id %}">{{ i.voucher_name }}</a>
                             <span><a href="{% url 'load_voucher_type' i.id %}"><i class="bi bi-pencil-fill" style="margin-right: 20px;color:rgb(75, 206, 75)"></i></a></span></td>
                     </tr>   

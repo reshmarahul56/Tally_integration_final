@@ -103,6 +103,17 @@
                                 </tr>
                             
                             {% endfor %} 
+                            {% for i in grup1 %}
+    
+                                <tr class="table-row " data-href="{% url 'load_create_groups' i.id %}" >
+
+                                    <td colspan="2" >{{ i.group_name }}</td>
+    
+                                
+                                   
+                                </tr>
+                            
+                            {% endfor %}
                                 
                             
                              

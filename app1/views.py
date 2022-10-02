@@ -7628,56 +7628,78 @@ def statistics(request):
   
 
 def Statistics_list_of_ledger(request):
-    grup=tally_group.objects.all()
-    groups_count1 = tally_group.objects.all().count()
-    ledg=tally_ledger.objects.all()
-  
-    ledgers_count1 = tally_ledger.objects.all().count()
-    
-    led=tally_ledger.objects.filter(status=0)
-
-    context={
+    if 't_id' in request.session:
+        if request.session.has_key('t_id'):
+            t_id = request.session['t_id']
+        else:
+            return redirect('/')
+        tally = Companies.objects.filter(id=t_id)
+        led=tally_ledger.objects.filter(status=0)
+        led1=tally_ledger.objects.filter(company_id=t_id)
+        context={'led':led,'led1':led1}
+        groups_count1 = tally_group.objects.all().count()
+        
+        ledgers_count1 = tally_ledger.objects.all().count()
+        
        
-        "led":led,
-        "grup":grup,
-        "ledg":ledg,
-        "groups_count1":groups_count1,
-        "ledgers_count1" : ledgers_count1
-    
-    }
-   
-    return render(request,'Statistics_LedgersList.html',context)
 
-# return redirect('/') '''
+        context={
+        
+            'led':led,
+            'led1':led1,
+            "groups_count1":groups_count1,
+            "ledgers_count1" : ledgers_count1,
+           
+        }
+    
+        return render(request,'Statistics_LedgersList.html',context)
+
+    return redirect('/')
 
 def Statistics_list_of_groups(request):
-    grup=tally_group.objects.all()
-
-    groups_count2 = tally_group.objects.all().count()
-    
-
-    context={
+    if 't_id' in request.session:
+        if request.session.has_key('t_id'):
+            t_id = request.session['t_id']
+        else:
+            return redirect('/')
+        tally = Companies.objects.filter(id=t_id)
+        grup=tally_group.objects.filter(status=0)
+        grup1=tally_group.objects.filter(company_id=t_id)
         
-        'grup':grup,
 
-        "groups_count2": groups_count2,
+        groups_count2 = tally_group.objects.all().count()
         
-        }
-     
-    return render(request,'Statistics_GroupsList.html',context)
+
+        context={
+            
+            'grup':grup,
+
+            "groups_count2": groups_count2,
+            "tally":tally,
+            "grup1":grup1,
+            }
+        
+        return render(request,'Statistics_GroupsList.html',context)
+    return redirect('/')  
 
 def Statistics_list_of_cost_centers(request):
-   
-    cst=cost_centre.objects.all()
-    cost_centre_count=cost_centre.objects.all().count()
-    context={
-                    'cst':cst,
-                    'cost_centre_count':cost_centre_count,
-                   
 
-        }
-    return render(request,'Statistics_CostCentresList.html',context)
+    if 't_id' in request.session:
+        if request.session.has_key('t_id'):
+            t_id = request.session['t_id']
+        else:
+            return redirect('/')
+        tally = Companies.objects.filter(id=t_id)
+        cst=cost_centre.objects.filter(company_id=t_id)
+        cost_centre_count=cost_centre.objects.all().count()
+        context={
+                        'cst':cst,
+                        'cost_centre_count':cost_centre_count,
+                        'tally':tally
 
+            }
+        return render(request,'Statistics_CostCentresList.html',context)
+    return redirect('/')
 
 #-------------------------Anandha Krishnan --------------------------------
 def Statistics_voucher_monthly_register(request,id):
@@ -8484,10 +8506,21 @@ def Statistics_Delete_Stock_Item(request,pk):
 # vchr typ ---------------------
 
 def Statistics_Voucher_Types(request):
-    vt_data=Voucher.objects.all()
-    vt_total=Voucher.objects.count()
-    context={'vt_data':vt_data,'vt_total':vt_total}
-    return render(request,'vouchertype.html',context)
+    if 't_id' in request.session:
+        if request.session.has_key('t_id'):
+            t_id = request.session['t_id']
+        else:
+            return redirect('/')
+        tally = Companies.objects.filter(id=t_id)
+        vou=Voucher.objects.filter(status=0)
+        vou1=Voucher.objects.filter(company_id=t_id)
+        vt_total=Voucher.objects.count()
+        context={'vou':vou,
+        'vou1':vou1,
+        'vt_total':vt_total,
+        'tally':tally}
+        return render(request,'vouchertype.html',context)
+    return redirect('/')
 
 def Statistics_Voucher_Type_Creation_Page(request):
     data=Voucher.objects.all()
